@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<!-- configuration file upload start-->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
+ 	<!-- configuration file upload end-->
+	<context:property-placeholder location="classpath:persistence-mysql.properties"/>
+	 <!-- Register the validation.properties -->
+	  <bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="validation" />
+	  </bean>
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<context:annotation-config/>
+	
+	<!-- Enables the Spring MVC @Controller and @ControllerAdvice programming model -->
+	<mvc:annotation-driven />
+	
+	<context:component-scan base-package="com.asn"/>
+	
+	<bean id="viewResolver"
+    class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	    <property name="viewClass">
+	        <value>
+	            org.springframework.web.servlet.view.tiles3.TilesView
+	        </value>
+	    </property>
+	</bean>
+	<!-- Helper class to configure Tiles 2.x for the Spring Framework -->
+	<!-- See http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/servlet/view/tiles2/TilesConfigurer.html -->
+	<!-- The actual tiles templates are in the tiles-definitions.xml  -->
+	
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">	
+		<property name="definitions">		
+			<list>
+				<value>/WEB-INF/tiles.xml</value>
+			</list>		
+		</property>	
+	</bean>
+	
+	<!-- JDBC Data Source. It is assumed you have MySQL running on localhost port 3306 with 
+       username root and blank password. Change below if it's not the case -->
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="${jdbc.driverClassName}"/>
+    <property name="url" value="${jdbc.url}"/>
+    <property name="username" value="${jdbc.user}"/>
+    <property name="password" value="${jdbc.pass}"/>
+    <property name="validationQuery" value="SELECT 1"/>
+  </bean>
+  
+  <!-- Hibernate Session Factory -->
+  <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="packagesToScan">
+      <array>        
+        <value>com.asn.service</value>                
+        <value>com.asn.model</value>                
+      </array>
+    </property>  
+    <property name="hibernateProperties">
+      <props>
+      	<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+      	<prop key="hibernate.dialect">${hibernate.dialect}</prop>      	      	
+      	<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+      </props>
+    </property>
+
+  </bean>
+  
+  <!-- Hibernate Transaction Manager -->
+  <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory"/>
+  </bean>
+  
+  <!-- Activates annotation based transaction management -->
+  <tx:annotation-driven transaction-manager="transactionManager"/>
+  
+  <mvc:resources mapping="/resources/**" location="/resources/" />
+  <mvc:resources mapping="/assets/**" location="/assets/" />
+  <mvc:resources mapping="/profilePhoto/**" location="file:///F:/temp/profilePhoto/" />
+  <mvc:resources mapping="/productImage/**" location="file:///F:/temp/productImage/" />
+</beans>

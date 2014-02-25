@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+    <definition name="base.definition"
+        template="/WEB-INF/views/layout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/template/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/views/template/menu.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp" />
+    </definition>
+ 
+    <definition name="home" extends="base.definition">
+        <put-attribute name="title" value="Home" />
+        <put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+    </definition>
+    
+    <definition name="auth/login" extends="base.definition">
+        <put-attribute name="title" value="Login" />
+        <put-attribute name="body" value="/WEB-INF/views/auth/login.jsp" />
+    </definition>
+    
+    <definition name="auth/logout" extends="base.definition">
+        <put-attribute name="title" value="Logout" />
+        <put-attribute name="body" value="/WEB-INF/views/auth/logout.jsp" />
+    </definition>
+    
+    <definition name="auth/edit" extends="base.definition">
+        <put-attribute name="title" value="Edit" />
+        <put-attribute name="body" value="/WEB-INF/views/auth/edit.jsp" />
+    </definition>
+    
+    <definition name="auth/register" extends="base.definition">
+        <put-attribute name="title" value="Register" />
+        <put-attribute name="body" value="/WEB-INF/views/auth/register.jsp" />
+    </definition>
+    
+    <definition name="auth/forgotPwd" extends="base.definition">
+        <put-attribute name="title" value="Forgot Password" />
+        <put-attribute name="body" value="/WEB-INF/views/auth/forgotPwd.jsp" />
+    </definition> 
+   
+    <definition name="message" extends="base.definition">
+        <put-attribute name="title" value="Message" />
+        <put-attribute name="body" value="/WEB-INF/views/message.jsp" />
+    </definition>
+
+    <definition name="exception" extends="base.definition">
+        <put-attribute name="title" value="Oops An Exception Occured" />
+        <put-attribute name="body" value="/WEB-INF/views/exception.jsp" />
+    </definition>
+
+    <definition name="attendenceForm" extends="base.definition">
+        <put-attribute name="title" value="Attendence" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/attendenceForm.jsp" />
+    </definition>
+
+    <definition name="adminHome" extends="base.definition">
+        <put-attribute name="title" value="Admin Home" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/adminHome.jsp" />
+    </definition>
+    
+    <definition name="addCourse" extends="base.definition">
+        <put-attribute name="title" value="Add Course" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/addCourse.jsp" />
+    </definition>
+    
+    <definition name="accessDenied" extends="base.definition">
+        <put-attribute name="title" value="Access Denied" />
+        <put-attribute name="body" value="/WEB-INF/views/accessDenied.jsp" />
+    </definition>
+
+    <definition name="updateCourse" extends="base.definition">
+        <put-attribute name="title" value="Update Course" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/updateCourse.jsp" />
+    </definition>
+
+    <definition name="deleteCourse" extends="base.definition">
+        <put-attribute name="title" value="Delete Course" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/deleteCourse.jsp" />
+    </definition>
+
+    <definition name="courseFees" extends="base.definition">
+        <put-attribute name="title" value="Course Fees" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/courseFees.jsp" />
+    </definition>
+
+    <definition name="addCourseFees" extends="base.definition">
+        <put-attribute name="title" value="Add Course Fees" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/addCourseFees.jsp" />
+    </definition>
+
+    <definition name="stdCourseFeesForm" extends="base.definition">
+        <put-attribute name="title" value="Student Fees Payment" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/stdCourseFeesForm.jsp" />
+    </definition>
+    
+    <definition name="stdCourseFeesFormPaymnet" extends="base.definition">
+        <put-attribute name="title" value="Student Fees Payment" />
+        <put-attribute name="body" value="/WEB-INF/views/admin/stdCourseFeesFormPaymnet.jsp" />
+    </definition>
+    
+    <definition name="complaintsForm" extends="base.definition">
+        <put-attribute name="title" value="Student Complaints Form" />
+        <put-attribute name="body" value="/WEB-INF/views/complaintsForm.jsp" />
+    </definition>
+    
+    <definition name="viewComplaints" extends="base.definition">
+        <put-attribute name="title" value="Student Complaints Form" />
+        <put-attribute name="body" value="/WEB-INF/views/viewComplaints.jsp" />
+    </definition>
+
+    <definition name="addExamDet" extends="base.definition">
+        <put-attribute name="title" value="Student Complaints Form" />
+        <put-attribute name="body" value="/WEB-INF/views/addExamDet.jsp" />
+    </definition>
+
+    <definition name="addExam" extends="base.definition">
+        <put-attribute name="title" value="Student Complaints Form" />
+        <put-attribute name="body" value="/WEB-INF/views/addExam.jsp" />
+    </definition>
+ 
+</tiles-definitions>

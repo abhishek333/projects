@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<security:http pattern="/resources/**" security="none" />
+	<security:http pattern="/assets/**" security="none" />
+	<security:http pattern="/profilePhoto/**" security="none" />
+	<security:http pattern="/productImage/**" security="none" />
+	
+	<security:http use-expressions="true" auto-config="true" create-session="ifRequired">
+		<security:intercept-url pattern="/login" access="permitAll" />		
+		<security:intercept-url pattern="/logout" access="permitAll" />		
+		<security:intercept-url pattern="/accessDenied" access="permitAll" />		
+		<security:intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN','ROLE_ROOT_ADMIN')" />
+	    <security:intercept-url pattern="/user/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_ROOT_ADMIN','ROLE_POLICE')" />
+		
+		<security:access-denied-handler error-page="/accessDenied"/>
+		<security:form-login login-page="/login" default-target-url="/" 
+				 	authentication-failure-url="/loginfailed"/> 
+		<security:logout invalidate-session="true" logout-success-url="/logout" />
+	</security:http>
+ 		
+ 	<bean id="daoAuthenticationProvider"
+ 		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+ 		<property name="userDetailsService" ref="userDetailsService"></property>
+ 	</bean>
+ 	<bean id="userDetailsService" class="com.asn.service.UserDetailsServiceImpl"/>
+ 	
+ 	<bean id="authenticationManager"
+ 		class="org.springframework.security.authentication.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref local="daoAuthenticationProvider"/>
+			</list>
+		</property>
+ 	</bean>
+	<security:authentication-manager>
+	  <security:authentication-provider user-service-ref="userDetailsService">
+	  	<security:password-encoder ref="encoder"/>
+	  </security:authentication-provider>
+	</security:authentication-manager>
+	<!-- For hashing and salting user passwords -->
+    <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+</beans>
